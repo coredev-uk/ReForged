@@ -147,6 +147,8 @@ export default class MakerAppImage extends MakerBase<MakerAppImageConfig> {
     const productComment = this.config.options?.productComment ?? packageJSON?.description;
     /** A path to application's icon. */
     const icon = this.config?.options?.icon ?? null;
+    /** The mime-types for the application. */
+    const mimeTypes = this.config?.options?.mimeTypes.join(';');
     /** Resolved path to AppImage output file. */
     const outFile = resolve(makeDir, this.name, targetArch, `${productName}-${packageJSON.version}-${targetArch}.AppImage`);
     /** A currently used AppImageKit release. */
@@ -204,7 +206,8 @@ export default class MakerAppImage extends MakerBase<MakerAppImageConfig> {
           "X-AppImage-Name": name,
           "X-AppImage-Version": packageJSON.version,
           "X-AppImage-Arch": mapArch(targetArch),
-          "StartupWMClass": name.toLowerCase()
+          "StartupWMClass": name.toLowerCase(),
+          "MimeType": mimeTypes
         }, actions)),
       /** Shell script used to launch the application. */
       shell: [
