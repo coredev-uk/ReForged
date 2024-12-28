@@ -143,6 +143,8 @@ export default class MakerAppImage extends MakerBase<MakerAppImageConfig> {
     const binShell = bin.replaceAll(/(?<!\\)"/g,'\\"');
     /** Human-friendly application name. */
     const productName = this.config.options?.productName ?? appName;
+    /** Human-friendly description. */
+    const productComment = this.config.options?.productComment ?? packageJSON?.description;
     /** A path to application's icon. */
     const icon = this.config?.options?.icon ?? null;
     /** Resolved path to AppImage output file. */
@@ -192,6 +194,7 @@ export default class MakerAppImage extends MakerBase<MakerAppImageConfig> {
           Version: "1.5",
           Type: "Application",
           Name: productName,
+          Comment: productComment,
           GenericName: genericName,
           Exec: `${bin.includes(" ") ? `"${binShell}"` : bin} %U`,
           Icon: icon ? name : undefined,
@@ -200,7 +203,8 @@ export default class MakerAppImage extends MakerBase<MakerAppImageConfig> {
             undefined,
           "X-AppImage-Name": name,
           "X-AppImage-Version": packageJSON.version,
-          "X-AppImage-Arch": mapArch(targetArch)
+          "X-AppImage-Arch": mapArch(targetArch),
+          "StartupWMClass": name.toLowerCase()
         }, actions)),
       /** Shell script used to launch the application. */
       shell: [
