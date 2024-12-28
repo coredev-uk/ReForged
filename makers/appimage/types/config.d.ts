@@ -117,7 +117,24 @@ export interface MakerAppImageConfigOptions {
      *
      * @experimental
      */
-    type2runtime?: boolean
+    type2runtime?: boolean,
+    /**
+     * The application comment found in the desktop file. Usually the description.
+     *
+     * Default uses the description on package.json
+     *
+     * @since 4.0.5
+     */
+    productComment?: string,
+
+    /**
+     * The application comment found in the desktop file. Usually the description.
+     *
+     * Default is an empty list.
+     *
+     * @since 4.0.5
+     */
+    mimeTypes?: string[],
 }
 
 export interface MakerAppImageConfig {
