@@ -263,7 +263,7 @@ export default class MakerAppImage extends MakerBase<MakerAppImageConfig> {
       data: resolve(workDir, 'usr/lib/', name),
       bin: resolve(workDir, 'usr/bin'),
       icons: iconMeta.then(meta => meta && meta.width && meta.height ?
-        resolve(workDir, 'usr/share/icons/hicolor', meta.width.toFixed(0)+'x'+meta.height.toFixed(0)) :
+        resolve(workDir, 'usr/share/icons/hicolor', meta.width.toFixed(0)+'x'+meta.height.toFixed(0), 'apps') :
         null
       )
     }
